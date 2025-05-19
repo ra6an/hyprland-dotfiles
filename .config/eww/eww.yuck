@@ -1,0 +1,175 @@
+(defvar NAME "R6N")
+
+;; WINDOW PARAMETERS
+(defvar STACKING "fg")
+(defvar FOCUSABLE "talse")
+(defvar MONITOR 1)
+(defvar WIDTH "350")
+
+;; Weather Vars
+(defpoll ICON :interval "15m" `scripts/weather.sh --icon`)
+(defpoll STAT :interval "15m" `scripts/weather.sh --stat`)
+(defpoll TEMP :interval "15m" `scripts/weather.sh --temp`)
+(defpoll HEX :interval "15m" `scripts/weather.sh --hex`)
+(defpoll CITY :interval "15m" `scripts/weather.sh --city`)
+(defpoll COUNTRY :interval "15m" `scripts/weather.sh --country`)
+;; (defpoll QUOTE :interval "15m" `scripts/weather.sh --quote`)
+;; (defpoll QUOTE2 :interval "15m" `scripts/weather.sh --quote2`)
+
+;; Sys Info Vars
+(defpoll HOST :interval "5s" `whoami`)
+(defpoll CPU_USAGE :interval "1s" `scripts/sys_info.sh --cpu`)
+(defpoll GPU_USAGE :interval "1s" `scripts/sys_info.sh --gpu`)
+(defpoll MEM_USAGE :interval "1s" `scripts/sys_info.sh --mem`)
+(defpoll DISK_USAGE :interval "5s" `df -h /home | awk 'NR==2 {print $3 "/" $2}'`)
+
+;; Time vars
+(defpoll HOUR :interval "5s" `date +\"%H\"`)
+(defpoll MIN :interval "5s" `date +\"%M\"`)
+
+;; User
+(defwidget w-user []
+    (box :vexpand "true" :hexpand "true" :class "info-container" :spacing 10 :space-evenly "false"
+        (box :class "info" :orientation "v" :spacing 10 :space-evenly "false" :vexpand "true" :hexpand "true"
+            (label :class "user" :text " ${HOST}" :halign "start" :valign "start" :vexpand "true" :hexpand "true")
+            (box :class "space-box" :orientation "h" :space-evenly "false" :spacing 10 :vexpand "true"
+                (label :class "icon" :text "󰋊" :halign "start" :valign "end")
+                (label :class "disk-usage" :text "${DISK_USAGE}" :valign "end")
+            )
+        )
+        (box :class "clock-box" :orientation "v" :spacing 0 :space-evenly "false" :vexpand "true" :halign "end"
+            (label :text "${HOUR}" :class "clock hour" :valign "end" :halign "center" :vexpand "true" :hexpand "false")
+            (label :text "${MIN}" :class "clock min" :valign "start" :halign "center" :vexpand "true" :hexpand "false")
+        )
+    )
+)
+
+;; SYS Info
+(defwidget w-system []
+    (box :class "sysinfo-container" :spacing 0 :orientation "vertical"
+            (box :class "sysinfo-cpu" :orientation "h" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "true"
+                (label :text "CPU " :class "cpu-label")
+                (scale :min 0 :max 100 :value CPU_USAGE :active "false" :class "gpu-slider" :hexpand "true")
+            )
+            (box :class "sysinfo-gpu" :orientation "h" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "true"
+                (label :text "GPU 󰢮" :class "gpu-label")
+                (scale :min 0 :max 100 :value GPU_USAGE :active "false" :class "gpu-slider" :hexpand "true")
+            )
+            (box :class "sysinfo-ram" :orientation "h" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "true"
+                (label :text "RAM " :class "ram-label")
+                (scale :min 0 :max 100 :value MEM_USAGE :active "false" :class "mem-slider" :hexpand "true")
+            )
+        )
+)
+
+;; Weather
+(defwidget w-weather []
+    (box
+        :class "weather-container"
+        :orientation "v"
+        :space-evenly "false"
+        (label :text "${COUNTRY}, ${CITY}" :valign "start" :halign "start" :class "label-location")
+        (box :orientation "h" :vexpand "true" :hexpand "true" :valign "center" :spacing 10 :space-evenly "false" :class "temp-box"
+            (label :valign "center" :class "icon-weather" :text "${ICON}" :style "color: ${HEX};")
+            (box :orientation "v" :spacing 10
+                (label :class "label-temp" :halign "start" :text "${TEMP}")
+            )
+        )
+        (label :class "label-stat" :halign "end" :text "${STAT}")
+    )
+)
+
+;; Calendar
+(defwidget w-calendar []
+    (calendar :halign "fill" :valign "fill" :hexpand "true" :vexpand "true" :class "cal-container")
+)
+
+;; Apps
+(defwidget w-apps []
+    (box :class "apps-container" :spacing 6 :vexpand "true" :hexpand "true" :orientation "v"
+        (box :class "apps-row" :spacing 6 :hexpand "true"
+            ;; DISCORD
+            (button 
+            :class "btn" 
+            :onclick "discord &"
+            ""
+            )
+            ;; TERMINAL
+            (button 
+            :class "btn" 
+            :onclick "kitty &"
+            ""
+            )
+            ;; BROWSER
+            (button 
+            :class "btn" 
+            :onclick "brave &"
+            ""
+            )
+        )
+        (box :class "apps-row" :spacing 6 :hexpand "true"
+            ;; OPEN AI
+            (button 
+            :class "btn" 
+            :onclick "brave --app=https://chat.openai.com &"
+            ""
+            )
+            ;; GITHUB
+            (button 
+            :class "btn" 
+            :onclick "brave --app=https://github.com/ra6an &"
+            "󰊢"
+            )
+            ;; VS CODE
+            (button 
+            :class "btn" 
+            :onclick "code &"
+            ""
+            )
+        )
+    )
+)
+
+;; WINDOWS
+
+(defwindow header []
+    :stacking "bg"
+    :focusable "false"
+    :monitor 0
+    :geometry (geometry :x 10 :y 10 :width 350 :height 140)
+    (w-user)
+)
+
+(defwindow weather []
+    :stacking "bg"
+    :focusable "false"
+    :monitor 0
+    :geometry (geometry :x 10 :y 160 :width 350 :height 180)
+    (w-weather)
+)
+
+(defwindow calendar []
+    :stacking "bg"
+    :focusable "false"
+    :monitor 0
+    :geometry (geometry :x 10 :y 350 :width 350 :height 190)
+    (w-calendar)
+)
+
+(defwindow favapps []
+    :stacking "bg"
+    :focusable "false"
+    :monitor 0
+    :geometry (geometry :x 10 :y 550 :width 350 :height 190)
+    (w-apps)
+)
+
+(defwindow system []
+    :stacking "bg"
+    :focusable "false"
+    :monitor 0
+    :geometry (geometry :x 10 :y 900 :width 350 :height 120)
+    :exclusive true
+    :anchor "bottom left"
+    (w-system)
+)

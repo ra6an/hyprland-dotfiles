@@ -1,0 +1,102 @@
+/* ROFI SQUARED THEME USING THE NORD PALETTE  */
+/* Author: Newman Sanchez (https://github.com/newmanls) */
+
+* {
+    font:   "JetBrainsMono Nerd Font 12";
+
+    bg0:     #2E3440;
+    bg1:     #3B4252;
+    fg0:     #D8DEE9;
+
+    my-bg0:     #1a1a1a;
+    my-bg1:     #4f5b66;
+    my-bg2:     #c2c2c2;
+
+    accent-color:     #88C0D0;
+    my-accent-color:     #4a5744;
+    urgent-color:     #EBCB8B;
+    my-urgent-color: #ffae00;
+
+    background-color:   transparent;
+    text-color:         @fg0;
+
+    margin:     0;
+    padding:    0;
+    spacing:    0;
+}
+
+window {
+    width:      480;
+    border-radius: 2px;
+
+    background-color:   @my-bg0;
+}
+
+inputbar {
+    spacing:    8px;
+    padding:    8px;
+
+    background-color:   @my-bg1;
+}
+
+prompt, entry, element-icon, element-text {
+    vertical-align: 0.5;
+}
+
+prompt {
+    text-color: @my-urgent-color;
+}
+
+textbox {
+    padding:            8px;
+    background-color:   @bg1;
+}
+
+listview {
+    padding:    4px 0;
+    lines:      8;
+    columns:    1;
+
+    fixed-height:   true;
+}
+
+element {
+    padding:    8px;
+    spacing:    8px;
+}
+
+element normal normal {
+    text-color: @my-bg2;
+}
+
+element normal urgent {
+    text-color: @urgent-color;
+}
+
+element normal active {
+    text-color: @my-accent-color;
+}
+
+element alternate active {
+    text-color: @my-accent-color;
+}
+
+element selected {
+    text-color: @my-bg2;
+}
+
+element selected normal, element selected active {
+    background-color:   @my-accent-color;
+}
+
+element selected urgent {
+    background-color:   @urgent-color;
+}
+
+element-icon {
+    size:   0.8em;
+}
+
+element-text {
+    text-color: inherit;
+}
