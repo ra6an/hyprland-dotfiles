@@ -1,0 +1,22 @@
+font_family JetBrainsMono Nerd Font
+font_size 10
+
+background              #0f1016
+foreground              #d0c3bb
+selection_background    #4c566a
+selection_foreground    #eceff4
+cursor                  #94748E
+
+# Normal colors
+color0  #0f1016
+color1  #B5664E
+color2  #9B7161
+color3  #AD8262
+color4  #B38F71
+color5  #C78C75
+color6  #94748E
+color7  #d0c3bb
+
+# Window padding
+
+window_padding_width 8

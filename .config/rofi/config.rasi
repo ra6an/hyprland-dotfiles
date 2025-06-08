@@ -2,7 +2,7 @@ configuration {
     modes: "drun";
 	fixed-num-lines: false;
 	show-icons: false;
-    yoffset: -200;
+    yoffset: -295;
 
       timeout {
       action: "kb-cancel";

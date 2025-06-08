@@ -41,9 +41,13 @@ get_cpu() {
 
 ## Get GPU usage
 get_gpu() {
-    gpu=$(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null | awk '{print $1}')
-	echo "${gpu}"
+    usage=$(amdgpu_top -J -n 1 -s 1000 | jq '.devices[0].gpu_activity.GFX.value' 2>/dev/null)
+    printf "%.0f" "$usage"
 }
+# get_gpu() {
+#     gpu=$(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null | awk '{print $1}')
+# 	echo "${gpu}"
+# }
 
 ## Get Used memory
 get_mem() {

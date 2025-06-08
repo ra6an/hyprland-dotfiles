@@ -8,15 +8,14 @@
     bg1:     #3B4252;
     fg0:     #D8DEE9;
 
+    my-bg0:     #1a1a1a;
+    my-bg1:     #4f5b66;
+    my-bg2:     #c2c2c2;
+
     accent-color:     #88C0D0;
+    my-accent-color:     #4a5744;
     urgent-color:     #EBCB8B;
-
-    my-bg0:     #0B001A;
-    my-bg1:     #0B001A;
-    my-bg2:     #c0aad8;
-
-    my-accent-color:     #5B2F9E;
-    my-urgent-color: #8654B2;
+    my-urgent-color: #ffae00;
 
     background-color:   transparent;
     text-color:         @fg0;
@@ -27,7 +26,7 @@
 }
 
 window {
-    width:      600;
+    width:      480;
     border-radius: 2px;
 
     background-color:   @my-bg0;

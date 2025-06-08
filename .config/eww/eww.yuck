@@ -29,7 +29,7 @@
 
 ;; User
 (defwidget w-user []
-    (box :vexpand "true" :hexpand "true" :class "info-container" :spacing 10 :space-evenly "false"
+    (box :vexpand "true" :hexpand "true" :class "info-container" :spacing 5 :space-evenly "false"
         (box :class "info" :orientation "v" :spacing 10 :space-evenly "false" :vexpand "true" :hexpand "true"
             (label :class "user" :text " ${HOST}" :halign "start" :valign "start" :vexpand "true" :hexpand "true")
             (box :class "space-box" :orientation "h" :space-evenly "false" :spacing 10 :vexpand "true"
@@ -49,15 +49,15 @@
     (box :class "sysinfo-container" :spacing 0 :orientation "vertical"
             (box :class "sysinfo-cpu" :orientation "h" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "true"
                 (label :text "CPU " :class "cpu-label")
-                (scale :min 0 :max 100 :value CPU_USAGE :active "false" :class "gpu-slider" :hexpand "true")
+                (scale :min 0 :max 100 :value CPU_USAGE :active "false" :class "cpu-slider" :hexpand "true" :valign "end")
             )
             (box :class "sysinfo-gpu" :orientation "h" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "true"
                 (label :text "GPU 󰢮" :class "gpu-label")
-                (scale :min 0 :max 100 :value GPU_USAGE :active "false" :class "gpu-slider" :hexpand "true")
+                (scale :min 0 :max 100 :value GPU_USAGE :active "false" :class "gpu-slider" :hexpand "true" :valign "end")
             )
             (box :class "sysinfo-ram" :orientation "h" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "true"
                 (label :text "RAM " :class "ram-label")
-                (scale :min 0 :max 100 :value MEM_USAGE :active "false" :class "mem-slider" :hexpand "true")
+                (scale :min 0 :max 100 :value MEM_USAGE :active "false" :class "mem-slider" :hexpand "true" :valign "end")
             )
         )
 )
@@ -135,40 +135,40 @@
 (defwindow header []
     :stacking "bg"
     :focusable "false"
-    :monitor 0
-    :geometry (geometry :x 10 :y 10 :width 350 :height 140)
+    :monitor 1
+    :geometry (geometry :x 5 :y 5 :width 350 :height 140)
     (w-user)
 )
 
 (defwindow weather []
     :stacking "bg"
     :focusable "false"
-    :monitor 0
-    :geometry (geometry :x 10 :y 160 :width 350 :height 180)
+    :monitor 1
+    :geometry (geometry :x 5 :y 155 :width 350 :height 180)
     (w-weather)
 )
 
 (defwindow calendar []
     :stacking "bg"
     :focusable "false"
-    :monitor 0
-    :geometry (geometry :x 10 :y 350 :width 350 :height 190)
+    :monitor 1
+    :geometry (geometry :x 5 :y 340 :width 350 :height 190)
     (w-calendar)
 )
 
 (defwindow favapps []
     :stacking "bg"
     :focusable "false"
-    :monitor 0
-    :geometry (geometry :x 10 :y 550 :width 350 :height 190)
+    :monitor 1
+    :geometry (geometry :x 5 :y 535 :width 350 :height 190)
     (w-apps)
 )
 
 (defwindow system []
     :stacking "bg"
     :focusable "false"
-    :monitor 0
-    :geometry (geometry :x 10 :y 900 :width 350 :height 120)
+    :monitor 1
+    :geometry (geometry :x 5 :y 915 :width 350 :height 120)
     :exclusive true
     :anchor "bottom left"
     (w-system)
