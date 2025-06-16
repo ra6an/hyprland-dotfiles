@@ -41,8 +41,10 @@ done
 echo "Final hyprpaper.conf content:"
 cat "$CONFIG"
 
-pkill hyprpaper
-hyprpaper & disown
+# pkill hyprpaper
+# hyprpaper & disown
+pgrep hyprpaper && pkill hyprpaper
+nohup hyprpaper &>/dev/null &
 
 wal -i "$1"
 
@@ -143,7 +145,7 @@ done
 
 # Hyprland config file update
 
-source ~/.cache/wal/colors.sh
+# source ~/.cache/wal/colors.sh
 
 # Funkcija za konverziju
 hex_to_rgba() {
@@ -190,3 +192,123 @@ sed -Ei \
     -e "s/^\s*my-accent-color:\s*#[0-9a-fA-F]{6,8};/    my-accent-color:     $color1;/" \
     -e "s/^\s*my-urgent-color:\s*#[0-9a-fA-F]{6,8};/    my-urgent-color: $color5;/" \
     "$RASI_FILE"
+
+
+# WLOGOUT SETUP
+
+# Lokacija tvog style.css fajla
+CSS_FILE="$HOME/.config/wlogout/style.css"
+
+TMP_FILE=$(mktemp)
+
+# Pywal boje (pretpostavljam da si ih već source-ovao prije ovoga)
+NEW_TEXT_DECORATION_COLOR="$foreground"
+NEW_TEXT_COLOR="$foreground"
+NEW_BUTTON_BG_COLOR="$background"
+NEW_HOVER_BG_COLOR="$color1"
+
+awk -v tdc="$NEW_TEXT_DECORATION_COLOR" \
+    -v tc="$NEW_TEXT_COLOR" \
+    -v bg="$NEW_BUTTON_BG_COLOR" \
+    -v hoverbg="$NEW_HOVER_BG_COLOR" '
+{
+    # Detekcija početka blokova
+    if ($0 ~ /^button[[:space:]]*{/) in_button = 1
+    if ($0 ~ /^button:focus, button:active, button:hover[[:space:]]*{/) in_hover = 1
+    if ($0 ~ /^[[:space:]]*}/) {
+        in_button = 0
+        in_hover = 0
+    }
+
+    # Zamjene unutar button { ... }
+    if (in_button) {
+        gsub(/text-decoration-color:[[:space:]]*#[0-9a-fA-F]{6}/, "text-decoration-color: " tdc)
+        gsub(/color:[[:space:]]*#[0-9a-fA-F]{6}/, "color: " tc)
+        gsub(/background-color:[[:space:]]*#[0-9a-fA-F]{6}/, "background-color: " bg)
+    }
+
+    # Zamjena unutar hover bloka
+    if (in_hover) {
+        gsub(/background-color:[[:space:]]*#[0-9a-fA-F]{6}/, "background-color: " hoverbg)
+    }
+
+    print
+}' "$CSS_FILE" > "$TMP_FILE"
+
+# Backup prije zamjene
+# cp "$CSS_FILE" "$CSS_FILE.bak"
+
+# Zamjena
+mv "$TMP_FILE" "$CSS_FILE"
+
+# GTK CSS FILE UPDATE
+
+# Generiši GTK CSS
+cat > ~/.config/gtk-3.0/gtk.css <<EOF
+@define-color foreground $foreground;
+@define-color background $background;
+@define-color color0 $color0;
+@define-color color1 $color1;
+@define-color color2 $color2;
+@define-color color3 $color3;
+@define-color color4 $color4;
+@define-color color5 $color5;
+@define-color color6 $color6;
+@define-color color7 $color7;
+EOF
+
+# * {
+#     background-color: @background;
+#     color: @foreground;
+# }
+
+# button, entry, combobox, notebook, headerbar, menubar, toolbar {
+#     background-color: @background;
+#     color: @foreground;
+#     border-color: @color1;
+# }
+
+cp ~/.config/gtk-3.0/gtk.css ~/.config/gtk-4.0/gtk.css
+
+# UPDATE DISCORD COLORS
+
+# Generate Discord theme
+
+THEME_FILE="$HOME/.config/BetterDiscord/themes/pywal.theme.css"
+COLORS_JSON="$HOME/.cache/wal/colors.json"
+
+# Učitaj sve boje iz colors.json i napravi zamene u THEME_FILE liniju po liniju
+jq -r '.colors | to_entries[] | "--" + .key + "=" + .value' "$COLORS_JSON" | while IFS='=' read -r var color; do
+    # Escape za sed, zbog # u hex kodu
+    color_escaped=$(printf '%s\n' "$color" | sed 's/[&/\]/\\&/g')
+    # Zameni liniju u THEME_FILE koja počinje sa var (npr. --color1:)
+    # regex traži liniju koja počinje belinom pa varijablom i zarezom na kraju
+    sed -i "s/^\(\s*${var}:\s*\).*;/\1${color_escaped};/" "$THEME_FILE"
+done
+
+hex_color=$(jq -r '.colors.color0' "$COLORS_JSON")
+
+# Konvertuj HEX (#rrggbb) u R, G, B
+r=$((16#${hex_color:1:2}))
+g=$((16#${hex_color:3:2}))
+b=$((16#${hex_color:5:2}))
+
+new_line="  --color-trans: rgba($r, $g, $b, 0.9);"
+
+# Zamijeni liniju ako postoji, inače dodaj novu unutar :root bloka
+if grep -q -- '--color-trans:' "$THEME_FILE"; then
+    # Ako postoji, zamijeni vrijednost
+    sed -i "s|^\s*--color-trans:.*|$new_line|" "$THEME_FILE"
+else
+    # Ako ne postoji, ubaci je tik iznad zatvarajuće } u :root
+    sed -i "/^:root[[:space:]]*{/,/^}/{ 
+        /^}/ i\\
+$new_line
+    }" "$THEME_FILE"
+fi
+
+# UPDATE SDDM THEME
+sudo cp "$1" "/usr/share/sddm/themes/Sugar-Candy/Backgrounds/Background.jpg"
+sudo sed -E -i "s|BackgroundColor=\"#([0-9a-fA-F]{6})\"|BackgroundColor=\"$background\"|g" /usr/share/sddm/themes/Sugar-Candy/theme.conf
+sudo sed -E -i "s|MainColor=\"#([0-9a-fA-F]{6})\"|MainColor=\"$foreground\"|g" /usr/share/sddm/themes/Sugar-Candy/theme.conf
+sudo sed -E -i "s|AccentColor=\"#([0-9a-fA-F]{6})\"|AccentColor=\"$color1\"|g" /usr/share/sddm/themes/Sugar-Candy/theme.conf

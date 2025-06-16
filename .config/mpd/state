@@ -1,0 +1,49 @@
+sw_volume: 30
+audio_device_state:1:MPD Pulse
+audio_device_state:1:FIFO Visualizer
+state: pause
+current: 4
+time: 84.629
+random: 1
+repeat: 1
+single: 0
+consume: 0
+crossfade: 0
+mixrampdb: 0
+mixrampdelay: -1
+lastloadedplaylist: 
+playlist_begin
+0:obsession.mp3
+1:dark-candy.mp3
+2:ado-freedom.mp3
+3:ado-freedom.mp3
+4:ado-freedom.mp3
+5:ado-im-a-controversy.mp3
+6:ado-freedom.mp3
+7:ado-im-a-controversy.mp3
+8:ado-odo.mp3
+9:ado-freedom.mp3
+10:ado-im-a-controversy.mp3
+11:ado-odo.mp3
+12:ado-freedom.mp3
+13:ado-im-a-controversy.mp3
+14:ado-odo.mp3
+15:yoasobi-probably.mp3
+16:upiko-crow.mp3
+17:minami-crying-for-rain.mp3
+18:gawr-gura-ash-again.mp3
+19:light-like-a-smile.mp3
+20:white-girl-a-special-night.mp3
+21:white-girl-concrete.mp3
+22:white-girl-confusion.mp3
+23:white-girl-dissonance.mp3
+24:white-girl-doting-love.mp3
+25:white-girl-flame-of-love.mp3
+26:white-girl-future-for-two.mp3
+27:white-girl-hight-owl-syndrome.mp3
+28:white-girl-rhythm-of-love.mp3
+29:white-girl-sharp-heartbeat.mp3
+30:white-girl-tears-of-rain.mp3
+31:white-girl-the-pain-fades-away.mp3
+32:white-girl-wonderland.mp3
+playlist_end

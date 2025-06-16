@@ -1,0 +1,269 @@
+// pywal generisane boje
+@import "/home/r6n/.cache/wal/colors.scss";
+
+* {
+    all: unset;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    background-color: transparent;
+    box-shadow: none;
+    color: unset;
+    border: none;
+    background-image: none;
+}
+
+$bg: #1a1a1a;
+$primary: #8b2e2e;
+$secondary: #4a5744;
+$accent: #ffae00;
+$text-light: #c2c2c2;
+$text-light2: #a8a8a8;
+$text-gray: #7a7a7a;
+$details: #4f5b66;
+
+$background-transparent: rgba(21, 24, 29, 0.7);
+$background-trans: rgba(red($background), green($background), blue($background), .9);
+// $background-transparent: $background;
+$yellow-soft: #cc8b00;
+$danger-yellow: rgba(255, 174, 0, 0.6);
+$danger-yellow-fade: rgba(255, 174, 0, 0.2);
+$transparent: rgba(255, 0, 0, 0);
+$sys-label: #4a5744;
+$weather-soft: #4a5744;
+$weather-light: #c2c2c2;
+$sys-label-size: 18px;
+$bg: $background-trans;
+
+// WEATHER
+
+.weather-container {
+    all: unset;
+    background-color: $bg;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.temp-box {
+    padding-left: 20px;   
+}
+
+.icon-weather {
+    font-family: "Iosevka Nerd Font";
+    font-size: 72px;
+}
+
+.label-location {
+    font-size: 22px;
+    // color: $text-light;
+    color: $foreground;
+}
+
+.label-temp {
+    font-size: 48px;
+    // color: $accent;
+    color: $color1;
+}
+
+.label-stat {
+    font-size: 24px;
+    padding-left: 20px;
+    // color: $details;
+    color: $color6;
+}
+
+// SYS INFO
+
+.sysinfo-container {
+    border-radius: 4px;
+    
+    .sysinfo {
+        padding: 10px;
+    }
+    
+    .sysinfo-gpu, .sysinfo-ram, .sysinfo-cpu, scale trough {
+        all: unset;
+        min-height: 8px;
+        margin: 2px 0px;
+        border: 4px solid $bg;
+        border-left: none;
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+        background: none;
+        background-color: $bg;
+    }
+        
+    .sysinfo-gpu, .sysinfo-ram, .sysinfo-cpu, scale trough highlight {
+        all: unset;
+        border-radius: 0px;
+    }
+    
+    .sysinfo-gpu scale trough{
+        // border: 2px solid #4a5744;
+    }
+    .sysinfo-cpu scale trough{
+        // border: 2px solid #ffae00;
+    }
+    .sysinfo-ram scale trough{
+        // border: 2px solid #8b2e2e;
+    }
+    
+    .gpu-label {
+        background-color: $bg;
+        color: $foreground;
+        padding: 0 18px 0 10px;
+        font-size: $sys-label-size;
+        margin: 2px 0;
+        border-radius: 4px;
+        border-bottom-right-radius: 0;
+    }
+    .sysinfo-gpu scale trough highlight {
+        background: $color3;
+        border-radius: 2px;
+    }
+            
+    .cpu-label {
+        background-color: $bg;
+        color: $foreground;
+        padding: 0 18px 0 10px;
+        font-size: $sys-label-size;
+        margin: 2px 0;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    .sysinfo-cpu scale trough highlight {
+        background: $color1;
+        border-radius: 2px;
+    }
+                    
+    .ram-label {
+        background-color: $bg;
+        color: $foreground;
+        padding: 0 18px 0 10px;
+        font-size: $sys-label-size;
+        margin: 2px 0;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    .sysinfo-ram scale trough highlight {
+        background: $color6;
+        border-radius: 2px;
+    }
+}
+                                
+// HEADER
+
+.info-container {
+    background: none;
+    
+    .info {
+        // background-color: $background-transparent;
+        background-color: $bg;
+        padding: 0 10px;
+        border-radius: 4px;
+        margin: 0;
+        
+        .user {
+            // color: $text-light;
+            color: $foreground;
+            margin-top: 4px;
+            font-size: 22px;
+        }
+        
+        .space-box {
+            .icon {
+                // color: $primary;
+                color: $color1;
+                font-size: 48px;
+            }
+            
+            .disk-usage {
+                // color: $details;
+                color: $color6;
+                margin-bottom: 5px;
+                font-size: 24px;
+            }
+        }
+    }
+    
+    
+    .clock-box {
+        border: 8px solid $color6;
+        border: 8px solid $color5;
+        border-radius: 4px;
+        
+        .clock {
+            font-size: 48px;
+        }
+            
+        .hour {
+            background-color: $color6;
+            color: $bg;
+            padding: 0 10px;
+        }
+        
+        .min {
+            // color: $text-light2;
+            // color: $background;
+            color: $color6;
+            padding: 0 10px;
+            font-weight: bold;
+            background-color: $bg;
+        }
+    }
+}
+
+// CALENDAR
+
+.cal-container {
+    // background-color: $background-transparent;
+    background-color: $bg;
+    // color: $text-gray;
+    color: $foreground;
+    // border-bottom: 4px solid $color6;
+    border-radius: 4px;
+}
+
+calendar {
+    background-color: transparent;
+    background: none;
+}
+calendar:selected {
+    // color: $accent;
+    color: $color1;
+}
+calendar.header {
+    // color: $accent;
+    color: $color1;
+}
+calendar.button {
+    // color: $accent;
+    color: $color1;
+}
+calendar.highlight {
+    // color: $text-light;
+    color: $color6;
+}
+calendar.indeterminate {
+    // color: $accent;
+    color: $color1;
+}
+
+// APPS
+
+.apps-container {
+}
+
+.btn {
+    font-size: 48px;
+    // color: $text-gray;
+    color: $color8;
+    // background-color: $background-transparent;
+    background-color: $bg;
+    border: 4px solid rgba(0, 0, 0, 0);
+    padding-right: 20px;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+.btn:hover {
+    // color: $accent;
+    color: $color1;
+}

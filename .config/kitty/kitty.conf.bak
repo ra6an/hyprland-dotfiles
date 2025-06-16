@@ -1,21 +1,21 @@
 font_family JetBrainsMono Nerd Font
 font_size 10
 
-background              #0f1016
-foreground              #d0c3bb
+background              #05203A
+foreground              #bfdef1
 selection_background    #4c566a
 selection_foreground    #eceff4
-cursor                  #94748E
+cursor                  #E3A5E4
 
 # Normal colors
-color0  #0f1016
-color1  #B5664E
-color2  #9B7161
-color3  #AD8262
-color4  #B38F71
-color5  #C78C75
-color6  #94748E
-color7  #d0c3bb
+color0  #05203A
+color1  #AC66B4
+color2  #218FD3
+color3  #5EA0DD
+color4  #6EBBEA
+color5  #9B99D7
+color6  #E3A5E4
+color7  #bfdef1
 
 # Window padding
 

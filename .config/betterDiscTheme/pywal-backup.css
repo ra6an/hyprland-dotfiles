@@ -1,0 +1,28 @@
+/**
+ * @name Pywal Theme
+ * @description Dynamic colors from Pywal
+ * @author r6n
+ * @version 1.0.0
+ */
+
+:root {
+    --background-primary: #121a1f;
+    --background-secondary: #54853E;
+    --background-tertiary: #6D925E;
+    --background-floating: #6D925E;
+    --header-primary: #d2dabf;
+    --text-normal: #d2dabf;
+    --text-muted: #939885;
+    --scrollbar-thin-thumb: #8FAA74;
+    --scrollbar-auto-thumb: #8FAA74;
+}
+
+/* Primjer primjene varijabli */
+.theme-dark {
+    background-color: var(--background-primary);
+    color: var(--text-normal);
+}
+
+.theme-dark .message {
+    background-color: var(--background-secondary);
+}

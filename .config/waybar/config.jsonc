@@ -89,9 +89,11 @@
       }
     },
     "network": {
-        "format-wifi": "({signalStrength}%) ",
+        "format-wifi": "󰘊",
+        "format-ethernet": "󰘊",
+        // "format-wifi": "({signalStrength}%) ",
         // "format-ethernet": "{ipaddr}/{cidr} ",
-        "format-ethernet": "{ifname}",
+        // "format-ethernet": "{ifname}",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
@@ -99,21 +101,22 @@
 
     },
     "pulseaudio": {
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
+        "format": "󰖀",
+        // "format": "{volume}% {icon} {format_source}",
+        // "format-bluetooth": "{volume}% {icon} {format_source}",
+        // "format-bluetooth-muted": " {icon} {format_source}",
+        // "format-muted": " {format_source}",
+        // "format-source": "{volume}% ",
+        // "format-source-muted": "",
+        // "format-icons": {
+        //     "headphone": "",
+        //     "hands-free": "",
+        //     "headset": "",
+        //     "phone": "",
+        //     "portable": "",
+        //     "car": "",
+        //     "default": ["", "", ""]
+        // },
         "on-click": "pavucontrol"
     },
     "custom/power": {

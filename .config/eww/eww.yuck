@@ -7,6 +7,7 @@
 (defvar WIDTH "350")
 
 ;; Weather Vars
+(defpoll WINFO :interval "15m" `scripts/weather.sh --getdata`)
 (defpoll ICON :interval "15m" `scripts/weather.sh --icon`)
 (defpoll STAT :interval "15m" `scripts/weather.sh --stat`)
 (defpoll TEMP :interval "15m" `scripts/weather.sh --temp`)
@@ -18,14 +19,28 @@
 
 ;; Sys Info Vars
 (defpoll HOST :interval "5s" `whoami`)
+
 (defpoll CPU_USAGE :interval "1s" `scripts/sys_info.sh --cpu`)
+(defpoll CPU_TEMP :interval "1s" `scripts/sys_info.sh --cpu-temp`)
+(defpoll CPU_FAN :interval "1s" `scripts/sys_info.sh --cpu-fan`)
+(defvar CPU_MAXRPM "2800")
+
 (defpoll GPU_USAGE :interval "1s" `scripts/sys_info.sh --gpu`)
+(defpoll GPU_TEMP :interval "1s" `scripts/sys_info.sh --gpu-temp`)
+(defpoll GPU_RPM :interval "1s" `scripts/sys_info.sh --gpu-rpm`)
+(defpoll GPU_MAXRPM :interval "1s" `scripts/sys_info.sh --gpu-maxrpm`)
+
 (defpoll MEM_USAGE :interval "1s" `scripts/sys_info.sh --mem`)
+(defpoll MEM_USED :interval "1s" `scripts/sys_info.sh --mem-used`)
+(defpoll MEM_MAX :interval "1s" `scripts/sys_info.sh --mem-max`)
+
 (defpoll DISK_USAGE :interval "5s" `df -h /home | awk 'NR==2 {print $3 "/" $2}'`)
 
 ;; Time vars
 (defpoll HOUR :interval "5s" `date +\"%H\"`)
 (defpoll MIN :interval "5s" `date +\"%M\"`)
+
+;; Audio Visualizer
 
 ;; User
 (defwidget w-user []
@@ -46,18 +61,30 @@
 
 ;; SYS Info
 (defwidget w-system []
-    (box :class "sysinfo-container" :spacing 0 :orientation "vertical"
+    (box :class "sysinfo-container" :spacing 4 :orientation "vertical" :space-evenly "false"
             (box :class "sysinfo-cpu" :orientation "h" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "true"
                 (label :text "CPU " :class "cpu-label")
-                (scale :min 0 :max 100 :value CPU_USAGE :active "false" :class "cpu-slider" :hexpand "true" :valign "end")
+                (box :class "middle-body" :orientation "v" :spacing 0 :space-evenly "false" :vexpand "true" :hexpand "true"
+                    (scale :flipped "true" :min 0 :max CPU_MAXRPM :value CPU_FAN :active "false" :class "cpu-slider-fan" :hexpand "true" :valign "start")
+                    (scale :min 0 :max 100 :value CPU_USAGE :active "false" :class "cpu-slider" :hexpand "true" :valign "end")
+                )
+                (label :text "󰈐 ${CPU_TEMP}°" :class "cpu-label-fan")
+                (label :text WINFO :visible false)
             )
             (box :class "sysinfo-gpu" :orientation "h" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "true"
                 (label :text "GPU 󰢮" :class "gpu-label")
-                (scale :min 0 :max 100 :value GPU_USAGE :active "false" :class "gpu-slider" :hexpand "true" :valign "end")
+                (box :class "middle-body" :orientation "v" :spacing 0 :space-evenly "false" :vexpand "true" :hexpand "true"
+                    (scale :flipped "true" :min 0 :max GPU_MAXRPM :value GPU_RPM :active "false" :class "gpu-slider-fan" :hexpand "true" :valign "start")
+                    (scale :min 0 :max 100 :value GPU_USAGE :active "false" :class "gpu-slider" :hexpand "true" :valign "end")
+                )
+                (label :text "󰈐 ${GPU_TEMP}°" :class "gpu-label-fan")
             )
             (box :class "sysinfo-ram" :orientation "h" :spacing 0 :space-evenly "false" :vexpand "false" :hexpand "true"
                 (label :text "RAM " :class "ram-label")
-                (scale :min 0 :max 100 :value MEM_USAGE :active "false" :class "mem-slider" :hexpand "true" :valign "end")
+                (box :class "middle-body" :orientation "v" :spacing 0 :space-evenly "false" :vexpand "true" :hexpand "true"
+                    (label :text "${MEM_USED} GB / ${MEM_MAX} GB" :class "mem-details" :hexpand "true" :valign "start")
+                    (scale :min 0 :max 100 :value MEM_USAGE :active "false" :class "mem-slider" :hexpand "true" :valign "end")
+                )
             )
         )
 )
@@ -86,34 +113,34 @@
 
 ;; Apps
 (defwidget w-apps []
-    (box :class "apps-container" :spacing 6 :vexpand "true" :hexpand "true" :orientation "v"
-        (box :class "apps-row" :spacing 6 :hexpand "true"
+    (box :class "apps-container" :spacing 4 :vexpand "true" :hexpand "true" :orientation "v"
+        (box :class "apps-row" :spacing 4 :hexpand "true"
             ;; DISCORD
             (button 
             :class "btn" 
             :onclick "discord &"
             ""
             )
-            ;; TERMINAL
+            ;; STEAM
             (button 
             :class "btn" 
-            :onclick "kitty &"
-            ""
+            :onclick "steam &"
+            ""
             )
             ;; BROWSER
             (button 
             :class "btn" 
-            :onclick "brave &"
+            :onclick "zen-browser &"
             ""
             )
-        )
-        (box :class "apps-row" :spacing 6 :hexpand "true"
-            ;; OPEN AI
+            ;; GIMP
             (button 
             :class "btn" 
-            :onclick "brave --app=https://chat.openai.com &"
-            ""
+            :onclick "gimp &"
+            ""
             )
+        )
+        (box :class "apps-row" :spacing 4 :hexpand "true"
             ;; GITHUB
             (button 
             :class "btn" 
@@ -126,9 +153,48 @@
             :onclick "code &"
             ""
             )
+            ;; TERMINAL
+            (button 
+            :class "btn" 
+            :onclick "kitty &"
+            ""
+            )
         )
+        (box :class "apps-row" :spacing 4 :hexpand "true"
+            ;; OPEN AI
+            (button 
+            :class "btn" 
+            :onclick "brave --app=https://chat.openai.com &"
+            ""
+            )
+            ;; YOUTUBE
+            (button 
+            :class "btn" 
+            :onclick "zen-browser --new-window https://youtube.com &"
+            ""
+            )
+        )
+        ;;(box :class "search-box" :spacing 0 :hexpand "true" :space-evenly "false"
+        ;;    (label :class "icon" :text "")
+        ;;    (input :class "input" :vexpand "true" :hexpand "true"
+
+        ;;    )
+        ;;)
     )
 )
+
+;; Audio Visualiser
+;; (defwidget w-cava_widget []
+;;    (box :orientation "horizontal"
+;;        :spacing 3
+;;        :class "cava-container"
+;;        (for bar in CAVA_DATA
+;;            (box :class "bar"
+;;                :style (format "height: ${bar}px;")
+;;            )
+;;        )
+;;    )
+;; )
 
 ;; WINDOWS
 
@@ -164,11 +230,19 @@
     (w-apps)
 )
 
+(defwindow cava []
+    :stacking "bg"
+    :focusable "false"
+    :monitor 1
+    :geometry (geometry :x 5 :y 620 :width 350 :height 190)
+    (w-cava_widget)
+)
+
 (defwindow system []
     :stacking "bg"
     :focusable "false"
     :monitor 1
-    :geometry (geometry :x 5 :y 915 :width 350 :height 120)
+    :geometry (geometry :x 5 :y 912 :width 350 :height 120)
     :exclusive true
     :anchor "bottom left"
     (w-system)

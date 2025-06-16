@@ -1,26 +1,26 @@
 /* ROFI SQUARED THEME USING THE NORD PALETTE  */
 /* Author: Newman Sanchez (https://github.com/newmanls) */
 
-* {
-    font:   "JetBrainsMono Nerd Font 12";
-
+oldboje {
     bg0:     #2E3440;
     bg1:     #3B4252;
     fg0:     #D8DEE9;
 
     accent-color:     #88C0D0;
     urgent-color:     #EBCB8B;
+}
 
-    my-bg0:     #0B001A;
-    my-bg1:     #0B001A;
-    my-bg2:     #c0aad8;
+* {
+    my-bg0:     #111215;
+    my-bg1:     #111215;
+    my-bg2:     #e0cdc6;
 
-    my-accent-color:     #5B2F9E;
-    my-urgent-color: #8654B2;
+    my-accent-color:     #74859B;
+    my-urgent-color: #8996A9;
 
+    font:   "JetBrainsMono Nerd Font 12";
     background-color:   transparent;
-    text-color:         @fg0;
-
+    text-color:         @my-bg2;
     margin:     0;
     padding:    0;
     spacing:    0;
@@ -28,14 +28,15 @@
 
 window {
     width:      600;
-    border-radius: 2px;
-
+    border-radius: 4px;
+    border: 8px;
+    border-color: @my-urgent-color;
     background-color:   @my-bg0;
 }
 
 inputbar {
     spacing:    8px;
-    padding:    8px;
+    padding:    20px;
 
     background-color:   @my-bg1;
 }
@@ -50,7 +51,7 @@ prompt {
 
 textbox {
     padding:            8px;
-    background-color:   @bg1;
+    background-color:   @my-bg2;
 }
 
 listview {
@@ -62,16 +63,19 @@ listview {
 }
 
 element {
-    padding:    8px;
+    border-radius: 4px;
     spacing:    8px;
+    padding: 6px 14px;
+    margin: 2px 10px;
 }
 
 element normal normal {
     text-color: @my-bg2;
+    text-color: @my-urgent-color;
 }
 
 element normal urgent {
-    text-color: @urgent-color;
+    text-color: @my-urgent-color;
 }
 
 element normal active {
@@ -87,11 +91,12 @@ element selected {
 }
 
 element selected normal, element selected active {
-    background-color:   @my-accent-color;
+    background-color:   @my-urgent-color;
+    text-color: @my-bg1;
 }
 
 element selected urgent {
-    background-color:   @urgent-color;
+    background-color:   @my-urgent-color;
 }
 
 element-icon {

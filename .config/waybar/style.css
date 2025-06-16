@@ -5,6 +5,7 @@
     font-size: 13px;
     margin: 0;
     padding: 0;
+    background: transparent;
 }
 
 window#waybar {
@@ -94,34 +95,40 @@ button {
 
 #pulseaudio,
 #network {
-    background-color: @background;
-    box-shadow: inset 0 0 0 4px @color8;
-    border-radius: 2px;
-    margin: 4px 0px;
+    /* background-color: @background; */
+    /* box-shadow: inset 0 0 0 4px @foreground; */
+    box-shadow: inset 0 -2px 0 0 @color6;
+    /* border-radius: 2px; */
+    margin: 0px 0px;
+    font-size: 18px;
     transition: all 0.3s;
 }
 
 #pulseaudio:hover,
 #network:hover {
-    box-shadow: inset 0 0 0 4px @foreground;
+    /* box-shadow: inset 0 0 0 4px @foreground; */
+    box-shadow: inset 0 -2px 0 0 @color1;
 }
 
 #network {
-    padding-right: 20px;
+    /* padding-right: 20px; */
 }
 
 #custom-power {
     all: unset;
-    padding: 0px 5px 0px 10px;
-    margin: 4px 4px;
+    padding: 0px 8px 0px 13px;
+    /* margin: 4px 4px; */
     border-radius: 2px;
-    box-shadow: inset 0 0 0 4px @color8;
+    /* box-shadow: inset 0 0 0 4px @color8; */
+    background-color: @color6;
+    color: @background;
     transition: all 0.3s;
 }
 
 #custom-power:hover {
-    box-shadow: inset 0 0 0 4px @foreground;
-    color: @color1;
+    /* box-shadow: inset 0 0 0 4px @foreground; */
+    background-color: @color1;
+    /* color: @color1; */
 }
 
 #custom-logo {

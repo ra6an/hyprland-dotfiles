@@ -1,0 +1,162 @@
+/**
+ * @name Pywal Theme
+ * @description Dynamic colors from Pywal
+ * @author r6n
+ * @version 1.0.0
+ */
+
+:root {
+  --color0: #111215;
+  --color1: #74859B;
+  --color2: #798EA7;
+  --color3: #89808D;
+  --color4: #88859B;
+  --color5: #8996A9;
+  --color6: #AF9FA2;
+  --color7: #e0cdc6;
+  --color8: #9c8f8a;
+  --color9: #74859B;
+  --color10: #798EA7;
+  --color11: #89808D;
+  --color12: #88859B;
+  --color13: #8996A9;
+  --color14: #AF9FA2;
+  --color15: #e0cdc6;
+  --color-trans: rgba(17, 18, 21, 0.9);
+
+  --text-primary: var(--color0);
+}
+
+/* #app-mount {
+    background-color: rgb(red(--color0), green(--color0), blue(--color0), .7);
+} */
+
+/* Pozadina glavnog prozora */
+.theme-dark {
+  /* background-color: rgba(var(--test), .9); */
+  background-color: var(--color0);
+  /* opacity: .5; */
+  color: var(--color7);
+}
+
+/* Sidebar */
+.theme-dark .sidebar-2K8pFh {
+  background-color: var(--color0);
+  /* background-color: rgba(var(--test), .9); */
+  background-color: red;
+}
+
+/* Naslovi i tekst */
+.theme-dark .title-3qD6f6, 
+.theme-dark .headerText-3Uvj1Y {
+  color: var(--color1);
+}
+
+/* Linkovi */
+.theme-dark a {
+  color: var(--color6);
+  text-decoration: none;
+}
+
+.theme-dark a:hover {
+  text-decoration: underline;
+}
+
+/* Dugmad */
+.theme-dark button, 
+.theme-dark .button-1a4xkX {
+  background-color: var(--color0);
+  color: var(--color7);
+  border: none;
+  border-radius: 4px;
+  padding: 2px 2px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.theme-dark button:hover, 
+.theme-dark .button-1a4xkX:hover {
+  background-color: var(--color1);
+  color: var(--color0);
+}
+
+/* Tooltip */
+.theme-dark .tooltip-3N4fD4 {
+  background-color: var(--color8);
+  color: var(--color0);
+  border-radius: 3px;
+  padding: 5px 8px;
+}
+
+/* Scrollbar - samo primer */
+.theme-dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.theme-dark ::-webkit-scrollbar-thumb {
+  background-color: var(--color1);
+  border-radius: 4px;
+}
+
+.theme-dark ::-webkit-scrollbar-track {
+  background-color: var(--color0);
+}
+
+.content_c48ade {
+    background-color: var(--color0) !important;
+}
+
+/* SIDEBAR */
+.content_c48ade .sidebar_c48ade { /*Glavni prozor*/
+    background-color: var(--color0);
+    /* background-color: red; */
+}
+.tree_ef3116 { /*serveri i folderi servera*/
+    background-color: var(--color0);
+    padding: 10px 0;
+}
+.item__58105 { /*indikator notifikacije lijevo od discord servera (lijevo)*/
+    background-color: var(--color1);
+}
+.content__99f8c { /*lista usera/kanala u sidebaru/grupi*/
+    /* background-color: var(--color0); */
+}
+.scroller__99e7c { /*Lista usera/kanala*/
+    background-color: var(--color0) !important;
+}
+.searchBar__35e86 { /*header in sidebar*/
+    background-color: var(--color0);
+}
+.searchBar__35e86 .button__201d5 { /*button top (Find or start a conversation)*/
+    background-color: var(--color1) !important;
+    color: var(--color0)
+}
+.interactiveSelected__972a0 {
+    background-color: var(--color0);
+    background-color: rgba(0,0,0, .3) !important;
+    border-radius: 0px;
+    border-right: 14px solid var(--color1);
+}
+.interactive_bf202d {
+    border-radius: 4px !important;
+}
+.interactive_bf202d:hover {
+    background-color: rgba(0,0,0, .25);
+}
+
+/* USER */
+.panels_c48ade {
+    background-color: var(--color0) !important;
+    border: none !important;
+    border-top: 4px solid var(--color1) !important;
+    border-radius: 0px !important;
+}
+.buttons__37e49 {
+    gap: 2px !important;
+}
+.buttons__37e49 button {
+    background-color: var(--color0);
+    border: 2px solid var(--color0) !important;
+    border-radius: 50px !important;
+}

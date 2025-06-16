@@ -1,9 +1,17 @@
 // pywal generisane boje
 @import "/home/r6n/.cache/wal/colors.scss";
+.entry {
+    background-color: transparent;
+}
 
 * {
     all: unset;
     font-family: "JetBrainsMono Nerd Font", monospace;
+    background-color: transparent;
+    box-shadow: none;
+    color: unset;
+    border: none;
+    background-image: none;
 }
 
 $bg: #1a1a1a;
@@ -27,12 +35,12 @@ $weather-soft: #4a5744;
 $weather-light: #c2c2c2;
 $sys-label-size: 18px;
 $bg: $background-trans;
+$fan-hl-bg: linear-gradient(to left, $bg, $bg 10px, $color5 4px, $color5 );
 
 // WEATHER
 
 .weather-container {
     all: unset;
-    // background-color: $background-transparent;
     background-color: $bg;
     border-radius: 4px;
     padding: 10px;
@@ -78,14 +86,57 @@ $bg: $background-trans;
     .sysinfo-gpu, .sysinfo-ram, .sysinfo-cpu, scale trough {
         all: unset;
         min-height: 8px;
-        margin: 2px 0px;
-        border: 4px solid $bg;
-        border-left: none;
-        border-top-right-radius: 50px;
-        border-bottom-right-radius: 50px;
+        margin: 0px;
         background: none;
-        background-color: $bg;
+        
+        .gpu-slider, .cpu-slider {
+            min-height: 14px;
+            background-color: $bg;
+            border: 3px solid $bg;
+            margin-right: 0px;
+            // border-top: 4px solid $bg;
+            border-left: none;
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
+        }
+
+        .mem-slider {
+            min-height: 12px;
+            background-color: $bg;
+            border: 3px solid $bg;
+            margin-right: 0px;
+            border-left: none;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .gpu-slider-fan, .cpu-slider-fan {
+            background-color: $color6;
+            margin-left: 0px;
+            border: 3px solid $color6;
+            border-right: none;
+            border-left: none;
+            border-top-left-radius: 2px;
+            border-top: 2px solid $bg;
+            padding-top: 3px;
+            border-bottom-left-radius: 2px;
+        }
     }
+
+    .mem-details {
+        min-height: 16px;
+        font-size: 14px;
+        background-color: $color6;
+        color: $bg;
+        border-radius: 0px;
+        border-top-right-radius: 4px;
+        font-weight: bold;
+        margin-left: 0px;
+        border-top: 2px solid $bg;
+        border-right: 2px solid $bg;
+        // -gtk-icon-transform: rotate(25);
+    }
+
         
     .sysinfo-gpu, .sysinfo-ram, .sysinfo-cpu, scale trough highlight {
         all: unset;
@@ -107,13 +158,39 @@ $bg: $background-trans;
         color: $foreground;
         padding: 0 18px 0 10px;
         font-size: $sys-label-size;
-        margin: 2px 0;
+        margin: 0;
         border-radius: 4px;
         border-bottom-right-radius: 0;
     }
-    .sysinfo-gpu scale trough highlight {
+    .middle-body .gpu-slider trough highlight {
         background: $color3;
         border-radius: 2px;
+    }
+    .middle-body .gpu-slider-fan trough highlight {
+        border-radius: 2px;
+        background-color: $color6;
+        background-image: linear-gradient(to left, $bg, $bg 10px, $color6 4px, $color6 );
+        background-size: 14px 100%;
+        background-position: top right;
+    }
+    .middle-body .cpu-slider-fan trough highlight {
+        border-radius: 2px;
+        background-color: $color6;
+        background-image: linear-gradient(to left, $bg, $bg 10px, $color6 4px, $color6 );
+        background-size: 14px 100%;
+        background-position: top right;
+    }
+    .gpu-label-fan, .cpu-label-fan {
+        background-color: $color6;
+        padding: 0px 6px 0px 10px;
+        font-size: $sys-label-size;
+        border-radius: 4px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 2px;
+        margin: 0;
+        border: 2px solid $bg;
+        border-left: none;
+        color: $bg;
     }
             
     .cpu-label {
@@ -121,7 +198,7 @@ $bg: $background-trans;
         color: $foreground;
         padding: 0 18px 0 10px;
         font-size: $sys-label-size;
-        margin: 2px 0;
+        margin: 0;
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
     }
@@ -135,7 +212,7 @@ $bg: $background-trans;
         color: $foreground;
         padding: 0 18px 0 10px;
         font-size: $sys-label-size;
-        margin: 2px 0;
+        margin: 0;
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
     }
@@ -182,6 +259,7 @@ $bg: $background-trans;
     
     .clock-box {
         border: 8px solid $color6;
+        // border: 8px solid $color5;
         border-radius: 4px;
         
         .clock {
@@ -244,21 +322,60 @@ calendar.indeterminate {
 // APPS
 
 .apps-container {
-    // background-color: red;
 }
 
 .btn {
-    font-size: 48px;
+    font-size: 36px;
     // color: $text-gray;
     color: $color8;
+    color: $foreground;
     // background-color: $background-transparent;
     background-color: $bg;
-    border: 4px solid rgba(0, 0, 0, 0);
-    padding-right: 20px;
-    border-radius: 2px;
+    // border-left: 4px solid rgba(0, 0, 0, 0);
+    // border-bottom: 4px solid $color1;
+    padding-right: 10px;
+    border-radius: 4px;
     transition: all 0.3s;
 }
 .btn:hover {
     // color: $accent;
     color: $color1;
+}
+
+.search-box {
+    background-color: $bg;
+    padding: 6px;
+
+    .icon {
+        color: $background;
+        background-color: $color6;
+        font-size: 24px;
+        padding: 0 10px 0 6px;
+        border-radius: 4px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .input {
+        border: 4px solid $color6;
+        border-radius: 4px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        font-size: 18px;
+        color: $foreground;
+    }
+}
+
+// AUDIO VISUALISER
+.cava-container {
+    background-color: $background;
+    margin: 10px;
+    // alignment: center;
+}
+
+.bar {
+    background-color: #88c0d0;
+    min-width: 4px;
+    border-radius: 2px;
+    transition: height 0.08s ease-in-out;
 }

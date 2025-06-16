@@ -29,7 +29,8 @@
 
 #window {
     background-color: @background;
-    border: 0;
+    border: 4px;
+    border-color: @border-color;
     padding: 2.5ch;
 }
 
